@@ -1,0 +1,51 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json
+
+version: 2
+final_space: true
+blocks:
+- type: prompt
+  alignment: left
+  segments:
+  - type: path
+    style: plain
+    template: " {{ .Path }} "
+    properties:
+      style: folder
+    background: ""
+    foreground: cyan
+    text: ""
+    duration: 0s
+    namelength: 0
+  - type: git
+    style: plain
+    template: "{{ .HEAD }} {{ if or (.Working.Changed) (.Staging.Changed) (gt .Behind 0) (gt .Ahead 0) }}[{{ if .Working.Changed }}?{{ end }}{{ if .Staging.Changed }}+{{ end }}{{ if gt .Behind 0 }}v{{ end }}{{ if gt .Ahead 0 }}^{{ end }}]{{ end }}"
+    properties:
+      branch_icon: ""
+      fetch_status: true
+      fetch_stash_count: true
+    background: ""
+    foreground: "#aa4480"
+    text: ""
+    duration: 0s
+    namelength: 0
+  - type: java
+    style: plain
+    template: " java{{ if eq .Major \"1\" }}{{ .Major }}.{{ .Minor}}{{ else }}{{ .Major }}{{ end}}"
+    background: ""
+    foreground: "#44aa80"
+    text: " "
+    duration: 0s
+    namelength: 0
+
+- type: prompt
+  alignment: left
+  segments:
+  - type: text
+    style: plain
+    template: ❯
+    background: ""
+    foreground: lightGreen
+    text: ""
+    duration: 0s
+    namelength: 0
+  newline: true

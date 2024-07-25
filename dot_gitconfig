@@ -1,0 +1,18 @@
+[include]
+    path = ~/.config/git/gitconfig
+    path = ~/.config/git/tools/delta.gitconfig
+
+[core]
+    editor = nvim
+    excludesFile = ~/.config/git/gitignore
+
+[alias]
+    cs     = commit --signoff --gpg-sign
+    ds     = diff --staged
+    ignore = update-index --assume-unchanged
+    lt     = log --graph --oneline --all
+    lsig   = log --show-signature
+    log1   = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(black)%s%C(reset) %C(magenta)- %an%C(reset)%C(auto)%d%C(reset)'
+    log2   = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(black)%s%C(reset) %C(magenta)- %an%C(reset)'
+    log3   = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(black)%s%C(reset)%n''          %C(magenta)- %an <%ae> %C(reset) %C(magenta)(committer: %cn <%ce>)%C(reset)'
+    pullr  = pull --recurse-submodules
