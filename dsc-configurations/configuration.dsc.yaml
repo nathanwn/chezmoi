@@ -137,3 +137,19 @@ properties:
       settings:
         id: MSYS2.MSYS2
         source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install chezmoi
+        allowPrerelease: true
+      settings:
+        id: twpayne.chezmoi
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install firefox
+        allowPrerelease: true
+      settings:
+        id: Mozilla.Firefox
+        source: winget
