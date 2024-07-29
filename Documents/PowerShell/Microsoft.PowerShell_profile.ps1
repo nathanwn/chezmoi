@@ -1,10 +1,12 @@
-if (Get-Command "oh-my-posh" -errorAction SilentlyContinue) {
-    # oh-my-posh init pwsh --config "$HOME\AppData\Local\Programs\oh-my-posh\themes\pure.omp.json" | Invoke-Expression
-    oh-my-posh init pwsh --config "$HOME\.config\oh-my-posh\config.yaml" | Invoke-Expression
-    oh-my-posh disable notice
-} else {
-    echo "oh-my-posh is not installed"
-}
+# if (Get-Command "oh-my-posh" -errorAction SilentlyContinue) {
+#     # oh-my-posh init pwsh --config "$HOME\AppData\Local\Programs\oh-my-posh\themes\pure.omp.json" | Invoke-Expression
+#     oh-my-posh init pwsh --config "$HOME\.config\oh-my-posh\config.yaml" | Invoke-Expression
+#     oh-my-posh disable notice
+# } else {
+#     echo "oh-my-posh is not installed"
+# }
+
+function prompt {"$PWD`n> "}
 
 function which($name) {
     Get-Command $name | Select-Object -ExpandProperty Definition
@@ -29,15 +31,15 @@ function tail($filename) {
 }
 
 $env:EDITOR="nvim"
-$env:XDG_CONFIG_HOME = $HOME + '\.config'
-$env:XDG_DATA_HOME = $HOME + '\.local\share'
-$env:XDG_STATE_HOME = $HOME + '\.local\state'
-$env:XDG_CACHE_HOME = $HOME + '\.cache'
+$env:XDG_CONFIG_HOME = "${HOME}\.config"
+$env:XDG_DATA_HOME = "${HOME}\.local\share"
+$env:XDG_STATE_HOME = "${HOME}\.local\state"
+$env:XDG_CACHE_HOME = "${HOME}\.cache"
 
 # Load local config
 $local_config_file = Join-Path -Path $PSScriptRoot -ChildPath "local.ps1"
-Write-Output $local_config_file
 
 if (Test-Path $local_config_file) {
-    $local_config_file
+    Write-Output "Loading ${local_config_file}"
+    . $local_config_file
 }
