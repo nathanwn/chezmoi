@@ -153,3 +153,11 @@ properties:
       settings:
         id: Mozilla.Firefox
         source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install powershell
+        allowPrerelease: true
+      settings:
+        id: Microsoft.PowerShell
+        source: winget
