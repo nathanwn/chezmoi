@@ -44,14 +44,6 @@ properties:
 
     - resource: Microsoft.WinGet.DSC/WinGetPackage
       directives:
-        description: Install oh-my-posh
-        allowPrerelease: true
-      settings:
-        id: JanDeDobbeleer.OhMyPosh
-        source: winget
-
-    - resource: Microsoft.WinGet.DSC/WinGetPackage
-      directives:
         description: Install fzf
         allowPrerelease: true
       settings:
@@ -160,4 +152,28 @@ properties:
         allowPrerelease: true
       settings:
         id: Microsoft.PowerShell
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install powertoys
+        allowPrerelease: true
+      settings:
+        id: Microsoft.PowerToys
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install starship
+        allowPrerelease: true
+      settings:
+        id: Starship.Starship
+        source: winget
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install Skype
+        allowPrerelease: true
+      settings:
+        id: Starship.Starship
         source: winget

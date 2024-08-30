@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2
+properties:
+  configurationVersion: 0.2.0
+  resources:
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install Skype
+        allowPrerelease: true
+      settings:
+        id: Microsoft.Skype
+        source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install Chrome
+        allowPrerelease: true
+      settings:
+        id: Google.Chrome
+        source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install Zoom
+        allowPrerelease: true
+      settings:
+        id: Zoom.Zoom
+        source: winget
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install SumatraPDF
+        allowPrerelease: true
+      settings:
+        id: SumatraPDF.SumatraPDF
+        source: winget
