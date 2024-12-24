@@ -24,7 +24,7 @@ function cd($name) {
 
 function cdf($name) {
     if (Get-Command "fzf" -ErrorAction SilentlyContinue) {
-        $repo_dir = Get-ChildItem -Path "$env:USERPROFILE\dev" -Force  -Recurse -Directory -Depth 4 -Filter ".git" | ForEach-Object { $_.Parent.Fullname } | fzf
+        $repo_dir = Get-ChildItem -Path "${env:USERPROFILE}\dev" -Force  -Recurse -Directory -Depth 4 -Filter ".git" | ForEach-Object { $_.Parent.Fullname } | fzf
         cd $repo_dir
     } else {
         echo "ERROR: fzf not found"
@@ -38,6 +38,10 @@ function tail($filename) {
 
 function wsl-shutdown() {
     wsl --shutdown --system
+}
+
+function wsl-start() {
+    wt --window 0 new-tab --profile "Ubuntu-24.04"
 }
 
 # Environment variables
@@ -63,6 +67,7 @@ if (Test-Path $local_config_file) {
     }
 }
 
+
 # Color groups:
 # - Command
 # - Comment
@@ -83,8 +88,25 @@ if (Test-Path $local_config_file) {
 # - String
 # - Type
 # - Variable
+
 Set-PSReadLineOption -Colors @{ InlinePrediction = '#A0A0A0' }
 Set-PSReadLineOption -Colors @{ Parameter = '#404040' }
-Set-PSReadLineOption -Colors @{ Command = '#006400' }
+Set-PSReadLineOption -Colors @{ Command = '#008000' }
+Set-PSReadLineOption -Colors @{ Member = '#404040' }
+Set-PSReadLineOption -Colors @{ Type = '#404040' }
+Set-PSReadLineOption -Colors @{ ContinuationPrompt = '#404040' }
+Set-PSReadLineOption -Colors @{ Default = '#404040' }
+
+Set-PSReadLineOption -EditMode Vi
+Set-PSReadLineKeyHandler -Chord 'Ctrl+[' -Function ViCommandMode
+Set-PSReadLineKeyHandler -Chord Ctrl-r -Function ReverseSearchHistory -ViMode Insert
+Set-PSReadLineKeyHandler -Chord Ctrl-r -Function ReverseSearchHistory -ViMode Command
 
 Set-PSReadLineKeyHandler -Chord "Ctrl+y" -Function ForwardWord
+
+# Application settings
+function komorebi_restart() {
+    komorebic stop --whkd
+    komorebic start --whkd
+}
+$env:KOMOREBI_CONFIG_HOME = "${env:USERPROFILE}\.config\komorebi"

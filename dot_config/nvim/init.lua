@@ -1,3 +1,11 @@
+-- local THEME = "base16-cupertino"
+-- local THEME = "base16-gruvbox-light-soft"
+-- local THEME = "base16-monokai"
+-- local THEME = "base16-one-light"
+-- local THEME = "base16-onedark"
+-- local THEME = "base16-tokyo-night-light"
+local THEME = "base16-equilibrium-gray-light"
+
 -- Leader key
 vim.g.mapleader = vim.keycode("<Space>")
 vim.g.maplocalleader = vim.keycode("<Space>")
@@ -104,8 +112,12 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
 vim.opt.background = "light"
-vim.cmd.colorscheme("wildcharm")
+-- vim.cmd.colorscheme("wildcharm")
 vim.cmd.packadd("cfilter")
+vim.api.nvim_create_user_command("ShadaClean", function()
+    local shada_dir = vim.fs.joinpath(vim.fs.normalize(vim.env["XDG_STATE_HOME"]), "nvim-data", "shada")
+    vim.uv.fs_rmdir(shada_dir)
+end, { desc = "Force remove shada directory" })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -347,14 +359,14 @@ local get_custom_theme = function()
     return M
 end
 
-local custom_theme = get_custom_theme()
-
 require('lazy').setup({
     {
         "folke/tokyonight.nvim",
         tag = "v4.8.0",
         priority = 1000,
+        cond = not string.match(THEME, "base16-.*"),
         init = function()
+            local custom_theme = get_custom_theme()
             require("tokyonight").setup({
               on_colors = custom_theme.on_colors,
               on_highlights = custom_theme.on_highlights,
@@ -363,7 +375,17 @@ require('lazy').setup({
         end,
     },
     {
+        "RRethy/base16-nvim",
+        name = "base16-nvim",
+        priority = 1000,
+        cond = string.match(THEME, "base16-.*"),
+        init = function()
+          vim.cmd.colorscheme(THEME)
+        end,
+    },
+    {
         "uga-rosa/ccc.nvim",
+        tag = "v2.0.3",
         config = function()
             require("ccc").setup()
         end
@@ -511,7 +533,7 @@ require('lazy').setup({
                 })
 
                 vim.keymap.set("n", "<Leader>ff", function()
-                    require("telescope.builtin").find_files({ hidden = true })
+                    require("telescope.builtin").find_files({ hidden = false })
                 end, { desc = "Files" })
                 vim.keymap.set("n", "<Leader>fb", function()
                     require("telescope.builtin").buffers({ previewer = false })
@@ -566,6 +588,12 @@ require('lazy').setup({
                     "<Leader>fa",
                     require("telescope.builtin").builtin,
                     { desc = "Built-ins" }
+                )
+                vim.keymap.set(
+                    "n",
+                    "<Leader>fC",
+                    require("telescope.builtin").colorscheme,
+                    { desc = "Colorscheme" }
                 )
             end,
         },
